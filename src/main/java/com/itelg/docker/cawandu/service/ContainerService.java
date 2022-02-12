@@ -3,9 +3,7 @@ package com.itelg.docker.cawandu.service;
 import java.util.List;
 import java.util.Map;
 
-import com.itelg.docker.cawandu.domain.container.Container;
-import com.itelg.docker.cawandu.domain.container.ContainerFilter;
-import com.itelg.docker.cawandu.domain.container.ContainerState;
+import com.itelg.docker.cawandu.domain.container.*;
 
 public interface ContainerService
 {
@@ -33,5 +31,9 @@ public interface ContainerService
 
     List<Container> getAllContainers();
 
-    public Map<ContainerState, Integer> getContainerStateStats();
+    List<ContainerLog> getContainerLog(Container container);
+
+    Map<ContainerState, Integer> getContainerStateStats();
+
+    ContainerCreation createContainer(ContainerConfig containerConfig);
 }

@@ -169,6 +169,22 @@
       <artifactId>lombok</artifactId>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>hu.xannosz</groupId>
+      <artifactId>microtools</artifactId>
+      <version>[0.6.3,)</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.google.code.gson</groupId>
+          <artifactId>gson</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.8.6</version>
+    </dependency>
   </dependencies>
 
   <scm>
@@ -206,7 +222,6 @@
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
-          <outputEncoding>UTF-8</outputEncoding>
         </configuration>
       </plugin>
       <plugin>
@@ -241,14 +256,12 @@
       <plugin>
         <groupId>com.spotify</groupId>
         <artifactId>docker-maven-plugin</artifactId>
-        <version>1.0.0</version>
+        <version>1.2.2</version>
         <configuration>
-          <serverId>dockerhub-jeggers</serverId>
-          <imageName>jeggers/${project.artifactId}</imageName>
+          <imageName>xannosz/${project.artifactId}</imageName>
           <forceTags>true</forceTags>
           <imageTags>
             <imageTag>${project.version}</imageTag>
-            <imageTag>0.3</imageTag>
             <imageTag>latest</imageTag>
           </imageTags>
           <baseImage>openjdk:8-jre-alpine</baseImage>

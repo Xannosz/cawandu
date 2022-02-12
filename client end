@@ -1,0 +1,153 @@
+String ping() throws DockerException, InterruptedException;
+
+    Version version() throws DockerException, InterruptedException;
+
+    int auth(RegistryAuth var1) throws DockerException, InterruptedException;
+
+    Info info() throws DockerException, InterruptedException;
+
+    List<Container> listContainers(DockerClient.ListContainersParam... var1) throws DockerException, InterruptedException;
+
+    List<Image> listImages(DockerClient.ListImagesParam... var1) throws DockerException, InterruptedException;
+
+    ContainerInfo inspectContainer(String var1) throws DockerException, InterruptedException;
+
+    ContainerCreation commitContainer(String var1, String var2, String var3, ContainerConfig var4, String var5, String var6) throws DockerException, InterruptedException;
+
+    ImageInfo inspectImage(String var1) throws DockerException, InterruptedException;
+
+    List<RemovedImage> removeImage(String var1) throws DockerException, InterruptedException;
+
+    List<RemovedImage> removeImage(String var1, boolean var2, boolean var3) throws DockerException, InterruptedException;
+
+    List<ImageSearchResult> searchImages(String var1) throws DockerException, InterruptedException;
+
+    void load(InputStream var1) throws DockerException, InterruptedException;
+
+    void create(String var1, InputStream var2) throws DockerException, InterruptedException;
+
+    void create(String var1, InputStream var2, ProgressHandler var3) throws DockerException, InterruptedException;
+
+    InputStream save(String... var1) throws DockerException, IOException, InterruptedException;
+
+    InputStream saveMultiple(String... var1) throws DockerException, IOException, InterruptedException;
+
+    TopResults topContainer(String var1) throws DockerException, InterruptedException;
+
+    TopResults topContainer(String var1, String var2) throws DockerException, InterruptedException;
+
+    void pull(String var1) throws DockerException, InterruptedException;
+
+    void pull(String var1, ProgressHandler var2) throws DockerException, InterruptedException;
+
+    void pull(String var1, RegistryAuth var2) throws DockerException, InterruptedException;
+
+    void pull(String var1, RegistryAuth var2, ProgressHandler var3) throws DockerException, InterruptedException;
+
+    void push(String var1) throws DockerException, InterruptedException;
+
+    void push(String var1, ProgressHandler var2) throws DockerException, InterruptedException;
+
+    void push(String var1, RegistryAuth var2) throws DockerException, InterruptedException;
+
+    void push(String var1, ProgressHandler var2, RegistryAuth var3) throws DockerException, InterruptedException;
+
+    void tag(String var1, String var2) throws DockerException, InterruptedException;
+
+    void tag(String var1, String var2, boolean var3) throws DockerException, InterruptedException;
+
+    String build(Path var1, DockerClient.BuildParam... var2) throws DockerException, InterruptedException, IOException;
+
+    String build(Path var1, String var2, DockerClient.BuildParam... var3) throws DockerException, InterruptedException, IOException;
+
+    String build(Path var1, ProgressHandler var2, DockerClient.BuildParam... var3) throws DockerException, InterruptedException, IOException;
+
+    String build(Path var1, String var2, ProgressHandler var3, DockerClient.BuildParam... var4) throws DockerException, InterruptedException, IOException;
+
+    String build(Path var1, String var2, String var3, ProgressHandler var4, DockerClient.BuildParam... var5) throws DockerException, InterruptedException, IOException;
+
+    List<ImageHistory> history(String var1) throws InterruptedException, DockerException;
+
+    ContainerCreation createContainer(ContainerConfig var1) throws DockerException, InterruptedException;
+
+    ContainerCreation createContainer(ContainerConfig var1, String var2) throws DockerException, InterruptedException;
+
+    void renameContainer(String var1, String var2) throws DockerException, InterruptedException;
+
+    void startContainer(String var1) throws DockerException, InterruptedException;
+
+    void stopContainer(String var1, int var2) throws DockerException, InterruptedException;
+
+    void pauseContainer(String var1) throws DockerException, InterruptedException;
+
+    void unpauseContainer(String var1) throws DockerException, InterruptedException;
+
+    void restartContainer(String var1) throws DockerException, InterruptedException;
+
+    void restartContainer(String var1, int var2) throws DockerException, InterruptedException;
+
+    ContainerExit waitContainer(String var1) throws DockerException, InterruptedException;
+
+    void killContainer(String var1) throws DockerException, InterruptedException;
+
+    void removeContainer(String var1) throws DockerException, InterruptedException;
+
+    void removeContainer(String var1, DockerClient.RemoveContainerParam... var2) throws DockerException, InterruptedException;
+
+    InputStream exportContainer(String var1) throws DockerException, InterruptedException;
+
+    InputStream archiveContainer(String var1, String var2) throws DockerException, InterruptedException;
+
+    void copyToContainer(Path var1, String var2, String var3) throws DockerException, InterruptedException, IOException;
+
+    List<ContainerChange> inspectContainerChanges(String var1) throws DockerException, InterruptedException;
+
+    LogStream logs(String var1, DockerClient.LogsParam... var2) throws DockerException, InterruptedException;
+
+    EventStream events(DockerClient.EventsParam... var1) throws DockerException, InterruptedException;
+
+    ExecCreation execCreate(String var1, String[] var2, DockerClient.ExecCreateParam... var3) throws DockerException, InterruptedException;
+
+    LogStream execStart(String var1, DockerClient.ExecStartParameter... var2) throws DockerException, InterruptedException;
+
+    Task inspectTask(String var1) throws DockerException, InterruptedException;
+
+    List<Task> listTasks() throws DockerException, InterruptedException;
+
+    List<Task> listTasks(com.spotify.docker.client.messages.swarm.Task.Criteria var1) throws DockerException, InterruptedException;
+
+    void execResizeTty(String var1, Integer var2, Integer var3) throws DockerException, InterruptedException;
+
+    ExecState execInspect(String var1) throws DockerException, InterruptedException;
+
+    ContainerStats stats(String var1) throws DockerException, InterruptedException;
+
+    void resizeTty(String var1, Integer var2, Integer var3) throws DockerException, InterruptedException;
+
+    List<Network> listNetworks() throws DockerException, InterruptedException;
+
+    Network inspectNetwork(String var1) throws DockerException, InterruptedException;
+
+    NetworkCreation createNetwork(NetworkConfig var1) throws DockerException, InterruptedException;
+
+    void removeNetwork(String var1) throws DockerException, InterruptedException;
+
+    void connectToNetwork(String var1, String var2) throws DockerException, InterruptedException;
+
+    void disconnectFromNetwork(String var1, String var2) throws DockerException, InterruptedException;
+
+    LogStream attachContainer(String var1, DockerClient.AttachParameter... var2) throws DockerException, InterruptedException;
+
+    String getHost();
+
+    Volume createVolume() throws DockerException, InterruptedException;
+
+    Volume createVolume(Volume var1) throws DockerException, InterruptedException;
+
+    Volume inspectVolume(String var1) throws DockerException, InterruptedException;
+
+    void removeVolume(Volume var1) throws DockerException, InterruptedException;
+
+    void removeVolume(String var1) throws DockerException, InterruptedException;
+
+    VolumeList listVolumes(DockerClient.ListVolumesParam... var1) throws DockerException, InterruptedException;

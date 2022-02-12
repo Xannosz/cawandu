@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE zk>
+<zk>
+    <window apply="${containerLogComposer}" mode="modal" closable="true" border="normal" width="80%">
+        <listbox id="logListBox" mold="paging" pageSize="20" sizedByContent="true" span="true">
+            <listhead sizable="true" menupopup="auto">
+                <listheader label="Time" sort="auto(id)" />
+                <listheader label="Stream" sort="auto(state)" />
+                <listheader label="Log" sort="auto(name)" />
+            </listhead>
+        </listbox>
+    </window>
+</zk>

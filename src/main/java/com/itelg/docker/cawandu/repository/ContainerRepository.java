@@ -1,14 +1,11 @@
 package com.itelg.docker.cawandu.repository;
 
+import com.itelg.docker.cawandu.domain.container.*;
+
 import java.util.List;
 import java.util.Map;
 
-import com.itelg.docker.cawandu.domain.container.Container;
-import com.itelg.docker.cawandu.domain.container.ContainerFilter;
-import com.itelg.docker.cawandu.domain.container.ContainerState;
-
-public interface ContainerRepository
-{
+public interface ContainerRepository {
     void renameContainer(Container container, String newName);
 
     void recreateContainer(Container container);
@@ -31,5 +28,9 @@ public interface ContainerRepository
 
     List<Container> getAllContainers();
 
+    List<ContainerLog> getContainerLog(Container container);
+
     Map<ContainerState, Integer> getContainerStateStats();
+
+    ContainerCreation createContainer(ContainerConfig containerConfig);
 }

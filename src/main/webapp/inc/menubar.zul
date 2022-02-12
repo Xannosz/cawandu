@@ -3,8 +3,10 @@
 <zk>
 <?component name="dashboardTab" macroURI="/dashboard/index.zul"?>
   <menubar apply="${menuComposer}" style="margin-bottom: 10px;" autodrop="true">
-    <menuitem label="Container" onClick="com.itelg.docker.cawandu.composer.container.ContainerListComposer.show()" iconSclass="z-icon-th-large" style="margin-right: 20px" />
+    <menuitem label="Containers" onClick="com.itelg.docker.cawandu.composer.container.ContainerListComposer.show()" iconSclass="z-icon-th-large" style="margin-right: 20px" />
     <menuitem label="Images" onClick="com.itelg.docker.cawandu.composer.image.ImageListComposer.show()" iconSclass="z-icon-align-justify" />
+    <menuitem label="Networks" onClick="com.itelg.docker.cawandu.composer.network.NetworkListComposer.show()" iconSclass="z-icon-sitemap" />
+    <menuitem label="Volumes" onClick="com.itelg.docker.cawandu.composer.volume.VolumeListComposer.show()" iconSclass="z-icon-tasks" />
     <menuitem id="idMenuitem" style="float: right;" label="{version} ({timestamp})" href="https://github.com/julian-eggers/cawandu/releases" target="_blank" />
     <menuitem style="float: right;" iconSclass="z-icon-bug" tooltiptext="Create issue on Github" href="https://github.com/julian-eggers/cawandu/issues" target="_blank" />
   </menubar>

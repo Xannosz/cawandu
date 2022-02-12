@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE zk>
+<zk>
+    <window apply="${networkConnectComposer}" mode="modal" closable="true" border="normal" width="270px">
+        <combobox id="containerIdComboBox" style="margin-right: 10px;"/>
+        <button id="connectButton" label="Connect"/>
+    </window>
+</zk>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE zk>
+<zk>
+    <window apply="${volumeListComposer}" border="normal">
+        <groupbox mold="3d" closable="false">
+            <caption label="Search"/>
+            <label value="Name: " style="font-weight: bold;"/>
+            <textbox id="nameTextBox"/>
+            <space width="30px"/>
+            <button id="searchSubmitButton" label="Search"/>
+            <space width="3px"/>
+            <button id="searchResetButton" label="Reset"/>
+        </groupbox>
+        <separator/>
+        <listbox id="volumeListBox" mold="paging" pageSize="20" sizedByContent="true" span="true">
+            <listhead sizable="true" menupopup="auto">
+                <listheader label="Name" sort="auto(name)"/>
+                <listheader label="Driver" sort="auto(driver)"/>
+                <listheader label="MountPoint" sort="auto(mountPoint)"/>
+                <listheader label="Scope" sort="auto(scope)"/>
+            </listhead>
+        </listbox>
+    </window>
+</zk>

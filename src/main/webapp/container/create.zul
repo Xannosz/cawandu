@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE zk>
+<zk>
+    <window apply="${containerCreateComposer}" border="normal">
+        <groupbox mold="3d" closable="false">
+            <caption label="Create" />
+            <label value="Name: " style="font-weight: bold;" />
+            <textbox id="nameTextbox" />
+            <label value="Image-Name: " style="font-weight: bold;" />
+            <textbox id="imageNameTextbox" />
+            <label value="Restart: " style="font-weight: bold;" />
+            <combobox id="restartCombobox" />
+            <space width="30px" />
+            <button id="createSubmitButton" label="Create" />
+            <space width="3px" />
+            <button id="cancelButton" label="Cancel" />
+        </groupbox>
+    </window>
+</zk>

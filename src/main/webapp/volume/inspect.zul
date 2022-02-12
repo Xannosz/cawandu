@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE zk>
+<zk>
+    <window apply="${volumeInspectComposer}" mode="modal" closable="true" border="normal" width="90%">
+        <groupbox mold="3d" closable="false">
+            <label value="Name: " style="font-weight: bold;"/>
+            <label id="nameLabel"/>
+            <space width="10px"/>
+
+            <label value="Driver: " style="font-weight: bold;"/>
+            <label id="driverLabel"/>
+            <space width="10px"/>
+
+            <label value="Mount point: " style="font-weight: bold;"/>
+            <label id="mountPointLabel"/>
+            <space width="10px"/>
+
+            <label value="Scope: " style="font-weight: bold;"/>
+            <label id="scopeLabel"/>
+        </groupbox>
+
+        <listbox id="driverOptsListBox" mold="paging" pageSize="20" sizedByContent="true" span="true">
+            <listhead sizable="true" menupopup="auto">
+                <listheader label="Key" sort="auto(key)"/>
+                <listheader label="Value" sort="auto(value)"/>
+            </listhead>
+        </listbox>
+
+        <listbox id="labelsListBox" mold="paging" pageSize="20" sizedByContent="true" span="true">
+            <listhead sizable="true" menupopup="auto">
+                <listheader label="Key" sort="auto(key)"/>
+                <listheader label="Value" sort="auto(value)"/>
+            </listhead>
+        </listbox>
+
+        <listbox id="statusListBox" mold="paging" pageSize="20" sizedByContent="true" span="true">
+            <listhead sizable="true" menupopup="auto">
+                <listheader label="Key" sort="auto(key)"/>
+                <listheader label="Value" sort="auto(value)"/>
+            </listhead>
+        </listbox>
+    </window>
+</zk>

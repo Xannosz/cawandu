@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE zk>
+<zk>
+    <window apply="${networkInspectComposer}" mode="modal" closable="true" border="normal" width="90%">
+        <groupbox mold="3d" closable="false">
+            <label value="ID: " style="font-weight: bold;"/>
+            <label id="idLabel"/>
+            <space width="10px"/>
+
+            <label value="Name: " style="font-weight: bold;"/>
+            <label id="nameLabel"/>
+            <space width="10px"/>
+
+            <label value="Scope: " style="font-weight: bold;"/>
+            <label id="scopeLabel"/>
+            <space width="10px"/>
+
+            <label value="Driver: " style="font-weight: bold;"/>
+            <label id="driverLabel"/>
+            <space width="10px"/>
+
+            <label value="IPAM driver: " style="font-weight: bold;"/>
+            <label id="ipamDriverLabel"/>
+        </groupbox>
+
+        <listbox id="ipamConfigListBox" mold="paging" pageSize="20" sizedByContent="true" span="true">
+            <listhead sizable="true" menupopup="auto">
+                <listheader label="Subnet" sort="auto(subnet)"/>
+                <listheader label="Ip range" sort="auto(ipRange)"/>
+                <listheader label="Gateway" sort="auto(gateway)"/>
+            </listhead>
+        </listbox>
+
+        <listbox id="containersListBox" mold="paging" pageSize="20" sizedByContent="true" span="true">
+            <listhead sizable="true" menupopup="auto">
+                <listheader label="Name" sort="auto(name)"/>
+                <listheader label="Endpoint ID" sort="auto(endpointId)"/>
+                <listheader label="MAC address" sort="auto(macAddress)"/>
+                <listheader label="Ipv4 address" sort="auto(ipv4Address)"/>
+                <listheader label="Ipv6 address" sort="auto(ipv6Address)"/>
+            </listhead>
+        </listbox>
+
+        <listbox id="optionsListBox" mold="paging" pageSize="20" sizedByContent="true" span="true">
+            <listhead sizable="true" menupopup="auto">
+                <listheader label="Key" sort="auto(key)"/>
+                <listheader label="Value" sort="auto(value)"/>
+            </listhead>
+        </listbox>
+    </window>
+</zk>
