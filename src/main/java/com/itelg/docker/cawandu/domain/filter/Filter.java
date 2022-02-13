@@ -1,18 +1,17 @@
 package com.itelg.docker.cawandu.domain.filter;
 
-public interface Filter
-{
-    public String getOrderBy();
+public interface Filter {
+    String getOrderBy();
 
-    public Boolean isAscending();
+    Boolean isAscending();
 
-    public void setOrderBy(String orderBy, boolean ascending);
+    void setOrderBy(String orderBy, boolean ascending);
 
-    public Integer getPage();
+    Integer getPage();
 
-    public Integer getPageSize();
+    Integer getPageSize();
 
-    public void setPageSize(int page, int pageSize);
+    void setPageSize(int page, int pageSize);
 
-    public Integer getOffset();
+    Integer getOffset();
 }

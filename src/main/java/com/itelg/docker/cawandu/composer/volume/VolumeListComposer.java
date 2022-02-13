@@ -1,7 +1,6 @@
 package com.itelg.docker.cawandu.composer.volume;
 
 import com.itelg.docker.cawandu.composer.TabComposer;
-import com.itelg.docker.cawandu.composer.network.NetworkInspectComposer;
 import com.itelg.docker.cawandu.composer.zk.WireArg;
 import com.itelg.docker.cawandu.domain.volume.Volume;
 import com.itelg.docker.cawandu.domain.volume.VolumeFilter;
@@ -96,7 +95,7 @@ public class VolumeListComposer extends TabComposer {
             inspectVolumeMenuItem.setIconSclass("z-icon-indent");
             inspectVolumeMenuItem.addEventListener(Events.ON_CLICK, event ->
             {
-                org.zkoss.zk.ui.Component composer = VolumeInspectComposer.show( volumeService.inspectVolume(volume.getName()));
+                org.zkoss.zk.ui.Component composer = VolumeInspectComposer.show(volumeService.inspectVolume(volume.getName()));
                 composer.addEventListener(Events.ON_CLOSE, closeEvent ->
                 {
                     if (closeEvent.getData() != null) {

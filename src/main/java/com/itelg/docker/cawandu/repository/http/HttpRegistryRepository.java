@@ -1,16 +1,8 @@
 package com.itelg.docker.cawandu.repository.http;
 
-import static org.springframework.util.Base64Utils.encodeToString;
-
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
-import java.nio.charset.Charset;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import javax.annotation.PostConstruct;
-
+import com.itelg.docker.cawandu.repository.RegistryRepository;
+import com.itelg.docker.cawandu.repository.http.parser.RegistryAuthTokenParser;
+import com.itelg.docker.cawandu.repository.http.parser.RegistryImageTagListParser;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -26,13 +18,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import com.itelg.docker.cawandu.repository.RegistryRepository;
-import com.itelg.docker.cawandu.repository.http.parser.RegistryAuthTokenParser;
-import com.itelg.docker.cawandu.repository.http.parser.RegistryImageTagListParser;
+import javax.annotation.PostConstruct;
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static org.springframework.util.Base64Utils.encodeToString;
 
 @Repository
-public class HttpRegistryRepository implements RegistryRepository
-{
+public class HttpRegistryRepository implements RegistryRepository {
     private static final Logger log = LoggerFactory.getLogger(HttpRegistryRepository.class);
     private PoolingHttpClientConnectionManager connectionManager;
     private HttpClient httpClient;
@@ -60,8 +57,7 @@ public class HttpRegistryRepository implements RegistryRepository
     private RegistryImageTagListParser imageTagListParser;
 
     @PostConstruct
-    public void init()
-    {
+    public void init() {
         HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
 
         RequestConfig.Builder requestConfigBuilder = RequestConfig.custom();
@@ -78,34 +74,25 @@ public class HttpRegistryRepository implements RegistryRepository
         httpClient = httpClientBuilder.build();
     }
 
-    private String getToken(String imageName)
-    {
+    private String getToken(String imageName) {
         String url = registryAuthUrl + "token?service=" + registryAuthService + "&scope=repository:" + imageName + ":pull";
         HttpEntity entity = null;
 
-        try
-        {
+        try {
             HttpGet request = new HttpGet(url);
-            request.addHeader("Authorization", "Basic " + encodeToString(String.valueOf(registryUsername + ":" + registryPassword).getBytes()));
+            request.addHeader("Authorization", "Basic " + encodeToString((registryUsername + ":" + registryPassword).getBytes()));
             HttpResponse response = httpClient.execute(request);
             entity = response.getEntity();
-            String content = EntityUtils.toString(entity, Charset.forName("UTF-8"));
+            String content = EntityUtils.toString(entity, StandardCharsets.UTF_8);
 
-            if (response.getStatusLine().getStatusCode() == 200 && content.contains("token"))
-            {
+            if (response.getStatusLine().getStatusCode() == 200 && content.contains("token")) {
                 return authTokenParser.convert(content);
             }
-        }
-        catch (ConnectException | SocketTimeoutException | ConnectTimeoutException | UnknownHostException e)
-        {
+        } catch (ConnectException | SocketTimeoutException | ConnectTimeoutException | UnknownHostException e) {
             log.warn("Request-error: " + url + " -- " + e.getMessage());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             log.error(e.getMessage(), e);
-        }
-        finally
-        {
+        } finally {
             connectionManager.closeIdleConnections(MAX_CONNECTION_IDLE_TIME, TimeUnit.SECONDS);
             connectionManager.closeExpiredConnections();
             EntityUtils.consumeQuietly(entity);
@@ -116,32 +103,24 @@ public class HttpRegistryRepository implements RegistryRepository
 
     // prepared for later use
     @SuppressWarnings("unused")
-    private void getTagManifest(String imageName, String tag)
-    {
+    private void getTagManifest(String imageName, String tag) {
         String fixedImageName = (imageName.contains("/") ? imageName : "library/" + imageName);
         String url = registryIndexUrl + fixedImageName + "/manifests/" + tag;
         HttpEntity entity = null;
         System.out.println(url);
 
-        try
-        {
+        try {
             HttpGet request = new HttpGet(url);
             request.addHeader("Authorization", "Bearer " + getToken(fixedImageName));
             HttpResponse response = httpClient.execute(request);
             entity = response.getEntity();
-            String content = EntityUtils.toString(entity, Charset.forName("UTF-8"));
+            String content = EntityUtils.toString(entity, StandardCharsets.UTF_8);
             System.out.println(content);
-        }
-        catch (ConnectException | SocketTimeoutException | ConnectTimeoutException | UnknownHostException e)
-        {
+        } catch (ConnectException | SocketTimeoutException | ConnectTimeoutException | UnknownHostException e) {
             log.warn("Request-error: " + url + " -- " + e.getMessage());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             log.error(e.getMessage(), e);
-        }
-        finally
-        {
+        } finally {
             connectionManager.closeIdleConnections(MAX_CONNECTION_IDLE_TIME, TimeUnit.SECONDS);
             connectionManager.closeExpiredConnections();
             EntityUtils.consumeQuietly(entity);
@@ -149,35 +128,26 @@ public class HttpRegistryRepository implements RegistryRepository
     }
 
     @Override
-    public List<String> getImageTagsByName(String imageName)
-    {
+    public List<String> getImageTagsByName(String imageName) {
         String fixedImageName = (imageName.contains("/") ? imageName : "library/" + imageName);
         String url = registryIndexUrl + fixedImageName + "/tags/list";
         HttpEntity entity = null;
 
-        try
-        {
+        try {
             HttpGet request = new HttpGet(url);
             request.addHeader("Authorization", "Bearer " + getToken(fixedImageName));
             HttpResponse response = httpClient.execute(request);
             entity = response.getEntity();
-            String content = EntityUtils.toString(entity, Charset.forName("UTF-8"));
+            String content = EntityUtils.toString(entity, StandardCharsets.UTF_8);
 
-            if (response.getStatusLine().getStatusCode() == 200 && content.contains("tags"))
-            {
+            if (response.getStatusLine().getStatusCode() == 200 && content.contains("tags")) {
                 return imageTagListParser.convert(content);
             }
-        }
-        catch (ConnectException | SocketTimeoutException | ConnectTimeoutException | UnknownHostException e)
-        {
+        } catch (ConnectException | SocketTimeoutException | ConnectTimeoutException | UnknownHostException e) {
             log.warn("Request-error: " + url + " -- " + e.getMessage());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             log.error(e.getMessage(), e);
-        }
-        finally
-        {
+        } finally {
             connectionManager.closeIdleConnections(MAX_CONNECTION_IDLE_TIME, TimeUnit.SECONDS);
             connectionManager.closeExpiredConnections();
             EntityUtils.consumeQuietly(entity);

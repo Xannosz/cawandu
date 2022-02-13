@@ -231,7 +231,7 @@ public class DefaultContainerServiceTest
     public void testGetContainerStateStats()
     {
         containerRepository.getContainerStateStats();
-        PowerMock.expectLastCall().andReturn(Collections.singletonMap(ContainerState.CREATED, Integer.valueOf(5)));
+        PowerMock.expectLastCall().andReturn(Collections.singletonMap(ContainerState.CREATED, 5));
 
         PowerMock.replayAll();
         Assert.assertEquals(1, containerService.getContainerStateStats().size());

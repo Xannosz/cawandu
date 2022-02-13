@@ -1,25 +1,5 @@
 package com.itelg.docker.cawandu.composer.image;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-import org.zkoss.zk.ui.event.Events;
-import org.zkoss.zk.ui.select.annotation.Listen;
-import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zul.ListModelList;
-import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listcell;
-import org.zkoss.zul.Listitem;
-import org.zkoss.zul.ListitemRenderer;
-import org.zkoss.zul.Menuitem;
-import org.zkoss.zul.Menupopup;
-import org.zkoss.zul.Textbox;
-
 import com.itelg.docker.cawandu.composer.TabComposer;
 import com.itelg.docker.cawandu.composer.container.ContainerListComposer;
 import com.itelg.docker.cawandu.composer.zk.WireArg;
@@ -31,11 +11,22 @@ import com.itelg.docker.cawandu.domain.image.UpdateState;
 import com.itelg.docker.cawandu.service.ImageService;
 import com.itelg.zkoss.helper.listbox.ListboxHelper;
 import com.itelg.zkoss.helper.listbox.ListcellHelper;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import org.zkoss.zk.ui.event.Events;
+import org.zkoss.zk.ui.select.annotation.Listen;
+import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Component
 @Scope("request")
-public class ImageListComposer extends TabComposer
-{
+public class ImageListComposer extends TabComposer {
     private static final long serialVersionUID = -5360705760494227016L;
 
     @Autowired
@@ -54,60 +45,50 @@ public class ImageListComposer extends TabComposer
     private ImageFilter filter;
 
     @Override
-    protected void afterCompose()
-    {
+    protected void afterCompose() {
         initFilter();
         initListbox();
         refreshListbox();
         setTitle(buildTitle());
     }
 
-    private void initFilter()
-    {
+    private void initFilter() {
         nameTextbox.setValue(filter.getName());
         idTextbox.setValue(filter.getId());
     }
 
-    private void initListbox()
-    {
+    private void initListbox() {
         imageListbox.setItemRenderer(new ImageListitemRenderer());
         imageListbox.getPaginal().setAutohide(false);
     }
 
-    private void refreshListbox()
-    {
+    private void refreshListbox() {
         imageListbox.setModel(new ListModelList<>(imageService.getImagesByFilter(filter)));
         ListboxHelper.hideIfEmpty(imageListbox, "No images found");
     }
 
-    private String buildTitle()
-    {
+    private String buildTitle() {
         String title = "Images";
         List<String> filterProperties = new ArrayList<>();
 
-        if (StringUtils.isNotBlank(filter.getName()))
-        {
+        if (StringUtils.isNotBlank(filter.getName())) {
             filterProperties.add("Name: " + filter.getName());
         }
 
-        if (StringUtils.isNotBlank(filter.getId()))
-        {
+        if (StringUtils.isNotBlank(filter.getId())) {
             filterProperties.add("ID: " + filter.getId());
         }
 
-        if (!filterProperties.isEmpty())
-        {
+        if (!filterProperties.isEmpty()) {
             title += " (" + StringUtils.join(filterProperties, ", ") + ")";
         }
 
         return title;
     }
 
-    private class ImageListitemRenderer implements ListitemRenderer<Image>
-    {
+    private class ImageListitemRenderer implements ListitemRenderer<Image> {
         @Override
-        public void render(Listitem item, Image image, int index) throws Exception
-        {
+        public void render(Listitem item, Image image, int index) throws Exception {
             Menupopup popup = new Menupopup();
             getSelf().appendChild(popup);
             item.setContext(popup);
@@ -132,22 +113,15 @@ public class ImageListComposer extends TabComposer
             {
                 UpdateState state = imageService.pullImage(image);
 
-                if (state == UpdateState.PULLED)
-                {
+                if (state == UpdateState.PULLED) {
                     showNotification("New version pulled");
                     refreshListbox();
                     publish(new ImagePulledEvent(image));
-                }
-                else if (state == UpdateState.NO_UPDATE)
-                {
+                } else if (state == UpdateState.NO_UPDATE) {
                     showNotification("No update available");
-                }
-                else if (state == UpdateState.NO_ACCESS)
-                {
+                } else if (state == UpdateState.NO_ACCESS) {
                     showWarning("No access to private repository!");
-                }
-                else
-                {
+                } else {
                     showWarning("Unknown error");
                 }
             });
@@ -157,13 +131,10 @@ public class ImageListComposer extends TabComposer
             removeImageMenuitem.setIconSclass("z-icon-times");
             removeImageMenuitem.addEventListener(Events.ON_CLICK, event ->
             {
-                if (imageService.removeImage(image))
-                {
+                if (imageService.removeImage(image)) {
                     showNotification("Image removed");
                     refreshListbox();
-                }
-                else
-                {
+                } else {
                     showWarning("Failed to delete image");
                 }
             });
@@ -176,8 +147,7 @@ public class ImageListComposer extends TabComposer
     }
 
     @Listen("onClick = #searchSubmitButton; onOK = #nameTextbox,#idTextbox")
-    public void onExecuteFilter()
-    {
+    public void onExecuteFilter() {
         filter.setName(nameTextbox.getValue().trim());
         filter.setId(idTextbox.getValue().trim());
 
@@ -186,28 +156,24 @@ public class ImageListComposer extends TabComposer
     }
 
     @Listen("onClick = #searchResetButton")
-    public void onResetFilter()
-    {
+    public void onResetFilter() {
         nameTextbox.setValue("");
         idTextbox.setValue("");
         onExecuteFilter();
     }
 
     @Listen("onClick = #removeUnusedImages")
-    public void onRemoveUnusedImages()
-    {
+    public void onRemoveUnusedImages() {
         List<Image> removedImages = imageService.removedUnusedImages();
         showNotification(removedImages.size() + " images removed");
         refreshListbox();
     }
 
-    public static void show()
-    {
+    public static void show() {
         show(new ImageFilter());
     }
 
-    public static void show(ImageFilter filter)
-    {
+    public static void show(ImageFilter filter) {
         show("/image/list.zul", Collections.singletonMap("filter", filter));
     }
 }

@@ -7,7 +7,6 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface WireArg
-{
+public @interface WireArg {
     String value();
 }

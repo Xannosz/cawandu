@@ -10,31 +10,26 @@ import org.zkoss.zk.ui.http.DHtmlLayoutServlet;
 import org.zkoss.zk.ui.http.HttpSessionListener;
 
 @Configuration
-public class ZkossConfiguration extends WebMvcConfigurerAdapter
-{
+public class ZkossConfiguration extends WebMvcConfigurerAdapter {
     @Override
-    public void addViewControllers(ViewControllerRegistry registry)
-    {
+    public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("").setViewName("forward:/index.zul");
     }
 
     @Bean
-    public HttpSessionListener zkossSessionListener()
-    {
+    public HttpSessionListener zkossSessionListener() {
         return new HttpSessionListener();
     }
 
     @Bean
-    public ServletRegistrationBean zkLoader()
-    {
+    public ServletRegistrationBean zkLoader() {
         ServletRegistrationBean zkLoader = new ServletRegistrationBean(new DHtmlLayoutServlet(), "*.zul", "*.zhtml");
         zkLoader.getInitParameters().put("update-uri", "/zkau");
         return zkLoader;
     }
 
     @Bean
-    public ServletRegistrationBean auEngine()
-    {
+    public ServletRegistrationBean auEngine() {
         return new ServletRegistrationBean(new DHtmlUpdateServlet(), "/zkau/*");
     }
 }

@@ -1,5 +1,3 @@
-version uplift, clean up
-
 volume, network creation
 
 container inspection, creation
@@ -12,4 +10,8 @@ fancy dashboard
 
 TASKS
 
-network connect/disconnet check
+favicon
+
+network connect/disconnect check
+
+try all button, and list the missing functions

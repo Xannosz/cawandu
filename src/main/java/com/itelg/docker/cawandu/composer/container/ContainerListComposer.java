@@ -66,7 +66,7 @@ public class ContainerListComposer extends TabComposer {
 
     private void initFilter() {
         ComboboxHelper.setDefaultItem(stateCombobox, "Show all");
-        ComboboxHelper.init(stateCombobox, ContainerState.values(), filter.getState(), (ComboitemRenderer<ContainerState>) (item, status, index) ->
+        ComboboxHelper.init(stateCombobox, ContainerState.values(), filter.getState(), (item, status, index) ->
         {
             item.setValue(status);
             item.setLabel(Labels.getLabel(status));
@@ -117,7 +117,7 @@ public class ContainerListComposer extends TabComposer {
 
     private class ContainerListitemRenderer implements ListitemRenderer<Container> {
         @Override
-        public void render(Listitem item, Container container, int index) throws Exception {
+        public void render(Listitem item, Container container, int index) {
             Menupopup popup = new Menupopup();
             getSelf().appendChild(popup);
             item.setContext(popup);

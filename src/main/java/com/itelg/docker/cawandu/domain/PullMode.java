@@ -1,8 +1,7 @@
 package com.itelg.docker.cawandu.domain;
 
-public enum PullMode
-{
+public enum PullMode {
     ALL,
     RUNNING,
-    NONE;
+    NONE
 }

@@ -2,12 +2,10 @@ package com.itelg.docker.cawandu.composer.network;
 
 import com.itelg.docker.cawandu.composer.PopupComposer;
 import com.itelg.docker.cawandu.composer.zk.WireArg;
-import com.itelg.docker.cawandu.domain.container.Container;
 import com.itelg.docker.cawandu.domain.network.Network;
 import com.itelg.docker.cawandu.service.ContainerService;
 import com.itelg.docker.cawandu.service.NetworkService;
 import com.itelg.zkoss.helper.combobox.ComboboxHelper;
-import com.itelg.zkoss.helper.i18n.Labels;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,12 +54,12 @@ public class NetworkConnectComposer extends PopupComposer {
     @Listen("onClick = #connectButton")
     public void onConnect() {
         Clients.clearWrongValue(containerIdComboBox);
-        if (Objects.isNull(containerIdComboBox.getSelectedItem())||StringUtils.isBlank(containerIdComboBox.getSelectedItem().getValue())) {
+        if (Objects.isNull(containerIdComboBox.getSelectedItem()) || StringUtils.isBlank(containerIdComboBox.getSelectedItem().getValue())) {
             throw new WrongValueException(containerIdComboBox, "Select a container!");
         }
         String containerId = containerIdComboBox.getSelectedItem().getValue();
 
-        networkService.connectToNetwork(network.getId(),containerId);
+        networkService.connectToNetwork(network.getId(), containerId);
 
         close(network);
     }

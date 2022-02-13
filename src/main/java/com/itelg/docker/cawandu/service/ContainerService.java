@@ -1,12 +1,11 @@
 package com.itelg.docker.cawandu.service;
 
+import com.itelg.docker.cawandu.domain.container.*;
+
 import java.util.List;
 import java.util.Map;
 
-import com.itelg.docker.cawandu.domain.container.*;
-
-public interface ContainerService
-{
+public interface ContainerService {
     void renameContainer(Container container, String newName);
 
     void recreateContainer(Container container);

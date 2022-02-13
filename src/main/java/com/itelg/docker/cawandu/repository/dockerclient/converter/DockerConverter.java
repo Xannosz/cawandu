@@ -37,7 +37,9 @@ public class DockerConverter {
 
     public com.itelg.docker.cawandu.domain.volume.VolumeList convert(VolumeList volumeList) {
         com.itelg.docker.cawandu.domain.volume.VolumeList result = new com.itelg.docker.cawandu.domain.volume.VolumeList();
-        result.setVolumes(volumeList.volumes().stream().map(this::convert).collect(Collectors.toList()));
+        if (Objects.nonNull(volumeList.volumes())) {
+            result.setVolumes(volumeList.volumes().stream().map(this::convert).collect(Collectors.toList()));
+        }
         result.setWarnings(volumeList.warnings());
         return result;
     }
